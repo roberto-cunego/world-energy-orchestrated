@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+logs/
+pgdata/
+airflow_data/
+data/
+EOF
