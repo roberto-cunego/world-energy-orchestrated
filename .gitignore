@@ -6,3 +6,4 @@ pgdata/
 airflow_data/
 data/
 EOF
+.DS_Store
