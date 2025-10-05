@@ -202,6 +202,30 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  dw-postgres:
+    image: postgres:16
+    container_name: dw-postgres
+    environment:
+      POSTGRES_USER: roberto
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: energy_dw
+    ports:
+      - "5433:5432"   # così non confligge con l'altro Postgres di Airflow
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - dw-postgres
+
+
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
